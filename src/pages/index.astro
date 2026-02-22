@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const latestPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout title="Home" description="Learn manual testing from the ground up. Clear guides for anyone who wants to become a software tester.">
+  <div class="max-w-3xl mx-auto px-4 py-16">
+    <section class="text-center mb-16">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-slate-900 mb-4">
+        Everything in <span class="text-accent">Manual Testing</span>, clarified.
+      </h1>
+      <p class="text-lg text-slate-600 max-w-xl mx-auto">
+        Straightforward guides for anyone who wants to become a tester. From test cases and bug reporting to test design and interviews — one place to learn it all.
+      </p>
+      <a href="/blog" class="inline-block mt-8 px-6 py-3 rounded-lg bg-accent text-white font-semibold hover:bg-accent-dark transition-colors">
+        Read the blog
+      </a>
+    </section>
+
+    <section>
+      <h2 class="font-display font-semibold text-xl text-slate-900 mb-4">Latest posts</h2>
+      <ul class="space-y-4">
+        {latestPosts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}`} class="block p-4 rounded-xl border border-slate-200 bg-white hover:border-accent hover:shadow-md transition-all">
+              <h3 class="font-display font-semibold text-slate-900">{post.data.title}</h3>
+              <p class="text-slate-600 text-sm mt-1">{post.data.description}</p>
+              <time class="text-slate-400 text-xs mt-2 block" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('en-US', { dateStyle: 'medium' })}
+              </time>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/blog" class="inline-block mt-4 text-accent font-medium hover:underline">All posts →</a>
+    </section>
+  </div>
+</BaseLayout>
