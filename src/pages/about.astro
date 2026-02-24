@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skills = [
+  'Manual Testing', 'Test Case Design', 'Bug Reporting', 'Test Planning',
+  'STLC', 'ISTQB Foundation', 'Exploratory Testing', 'UAT',
+  'BRD Analysis', 'Regression Testing', 'API Testing', 'Agile/Scrum',
+];
+---
+
+<BaseLayout title="About" description="About Andrew Amin — manual tester and author of Manual Test Blog.">
+  <div class="max-w-3xl mx-auto px-5 py-16">
+
+    <!-- Profile card -->
+    <div class="rounded-3xl border border-white/5 bg-white/3 p-8 mb-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
+        <!-- Avatar -->
+        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-display font-bold text-2xl flex-shrink-0 shadow-lg shadow-indigo-500/20">
+          AA
+        </div>
+        <div>
+          <h1 class="font-display font-extrabold text-3xl text-white mb-1">Andrew Amin</h1>
+          <p class="text-indigo-400 font-medium mb-3">Manual Tester & QA Professional</p>
+          <!-- LinkedIn Badge -->
+          <a href="https://www.linkedin.com/in/andrew-amin-48763a194/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0A66C2] text-white text-sm font-semibold hover:bg-[#004182] transition-colors shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-slate-300 leading-relaxed">
+        <p>
+          Hi, I'm <strong class="text-white">Andrew Amin</strong> — a manual tester and QA professional who is passionate about software quality and helping others enter the testing field.
+        </p>
+        <p>
+          I created <strong class="text-white">Manual Test Blog</strong> to build a single, clear, and structured place where anyone — whether a beginner or an experienced professional — can learn everything about manual testing: from the basics to ISTQB-aligned concepts, real-life test cases, and career guidance.
+        </p>
+        <p>
+          My goal is simple: make manual testing concepts easy to understand and practical to apply — no fluff, no confusion. Just clear guides you can start using today.
+        </p>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="rounded-3xl border border-white/5 bg-white/3 p-8 mb-8">
+      <h2 class="font-display font-bold text-xl text-white mb-5">Skills & topics covered</h2>
+      <div class="flex flex-wrap gap-2">
+        {skills.map(skill => (
+          <span class="px-3 py-1.5 rounded-xl border border-indigo-500/20 bg-indigo-500/10 text-indigo-300 text-sm font-medium">
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Mission / Why this blog -->
+    <div class="rounded-3xl border border-white/5 bg-white/3 p-8 mb-8">
+      <h2 class="font-display font-bold text-xl text-white mb-5">Why this blog?</h2>
+      <div class="space-y-4">
+        <div class="flex gap-4">
+          <span class="text-2xl flex-shrink-0">🎯</span>
+          <div>
+            <h3 class="text-white font-semibold mb-1">Clear and structured</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Every article follows a logical structure — definition, examples, practical steps — so you always know what you're learning and why it matters.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-2xl flex-shrink-0">📋</span>
+          <div>
+            <h3 class="text-white font-semibold mb-1">ISTQB aligned</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Content is aligned with the ISTQB Foundation Level syllabus so it's useful both for real-world work and for exam preparation.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-2xl flex-shrink-0">💼</span>
+          <div>
+            <h3 class="text-white font-semibold mb-1">Real-world examples</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Articles include real business scenarios (e-commerce, banking, order management) with ready-to-use test cases so you can apply concepts immediately.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-2xl flex-shrink-0">🚀</span>
+          <div>
+            <h3 class="text-white font-semibold mb-1">Built for beginners and professionals</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Whether you're starting out or brushing up before an interview, you'll find something useful here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connect CTA -->
+    <div class="rounded-3xl border border-indigo-500/20 bg-indigo-500/5 p-8 text-center">
+      <h2 class="font-display font-bold text-xl text-white mb-2">Let's connect</h2>
+      <p class="text-slate-400 text-sm mb-5">Have a question, feedback, or just want to chat about testing? Reach out on LinkedIn — I'd love to hear from you.</p>
+      <a href="https://www.linkedin.com/in/andrew-amin-48763a194/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0A66C2] text-white font-semibold hover:bg-[#004182] transition-colors shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        Andrew Amin on LinkedIn
+      </a>
+    </div>
+
+  </div>
+</BaseLayout>

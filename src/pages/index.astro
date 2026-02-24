@@ -1,41 +1,101 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-const latestPosts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 2);
+
+const allPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const latestPosts = allPosts.slice(0, 6);
+
+const stats = [
+  { value: allPosts.length + '+', label: 'Articles' },
+  { value: 'ISTQB', label: 'Aligned' },
+  { value: '100%', label: 'Free' },
+];
+
+const topics = [
+  { icon: '🧪', label: 'Test Cases' },
+  { icon: '🐛', label: 'Bug Reports' },
+  { icon: '🔍', label: 'Exploratory Testing' },
+  { icon: '📋', label: 'Test Planning' },
+  { icon: '⚙️', label: 'STLC' },
+  { icon: '📊', label: 'ISTQB Principles' },
+  { icon: '📄', label: 'BRD Analysis' },
+  { icon: '🎯', label: 'Interview Prep' },
+];
 ---
 
 <BaseLayout title="Home" description="Learn manual testing from the ground up. Clear guides for anyone who wants to become a software tester.">
-  <div class="max-w-3xl mx-auto px-4 py-16">
-    <section class="text-center mb-16">
-      <h1 class="font-display font-bold text-4xl sm:text-5xl text-slate-900 mb-4">
-        Everything in <span class="text-accent">Manual Testing</span>, clarified.
-      </h1>
-      <p class="text-lg text-slate-600 max-w-xl mx-auto">
-        Straightforward guides for anyone who wants to become a tester. From test cases and bug reporting to test design and interviews — one place to learn it all.
-      </p>
-      <a href="/blog" class="inline-block mt-8 px-6 py-3 rounded-lg bg-accent text-white font-semibold hover:bg-accent-dark transition-colors">
-        Read the blog
-      </a>
-    </section>
 
-    <section>
-      <h2 class="font-display font-semibold text-xl text-slate-900 mb-4">Latest posts</h2>
-      <ul class="space-y-4">
-        {latestPosts.map((post) => (
-          <li>
-            <a href={`/blog/${post.slug}`} class="block p-4 rounded-xl border border-slate-200 bg-white hover:border-accent hover:shadow-md transition-all">
-              <h3 class="font-display font-semibold text-slate-900">{post.data.title}</h3>
-              <p class="text-slate-600 text-sm mt-1">{post.data.description}</p>
-              <time class="text-slate-400 text-xs mt-2 block" datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString('en-US', { dateStyle: 'medium' })}
-              </time>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <a href="/blog" class="inline-block mt-4 text-accent font-medium hover:underline">All posts →</a>
-    </section>
-  </div>
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-20 pb-24 px-5">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.25),transparent)]"></div>
+    <div class="relative max-w-5xl mx-auto text-center">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-medium mb-6">
+        ✦ ISTQB Foundation aligned
+      </span>
+      <h1 class="font-display font-extrabold text-4xl sm:text-6xl text-white leading-tight mb-5">
+        Everything in <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">Manual Testing</span>, clarified.
+      </h1>
+      <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        Straightforward guides for anyone who wants to become a tester. From test cases and bug reporting to test design, ISTQB concepts, and real-life business scenarios.
+      </p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="/blog" class="px-6 py-3 rounded-xl bg-indigo-500 text-white font-semibold hover:bg-indigo-600 transition-colors shadow-lg shadow-indigo-500/20">
+          Read the blog
+        </a>
+        <a href="/about" class="px-6 py-3 rounded-xl border border-white/10 text-slate-300 font-semibold hover:bg-white/5 transition-colors">
+          About the author
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="max-w-5xl mx-auto px-5 pb-16">
+    <div class="grid grid-cols-3 gap-4">
+      {stats.map(s => (
+        <div class="rounded-2xl border border-white/5 bg-white/3 p-6 text-center">
+          <div class="font-display font-bold text-3xl text-white mb-1">{s.value}</div>
+          <div class="text-slate-500 text-sm">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Topics -->
+  <section class="max-w-5xl mx-auto px-5 pb-20">
+    <h2 class="font-display font-bold text-xl text-white mb-5">What you'll find here</h2>
+    <div class="flex flex-wrap gap-3">
+      {topics.map(t => (
+        <span class="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/8 bg-white/3 text-slate-300 text-sm hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-colors">
+          {t.icon} {t.label}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- Latest Posts -->
+  <section class="max-w-5xl mx-auto px-5 pb-24">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-display font-bold text-xl text-white">Latest posts</h2>
+      <a href="/blog" class="text-indigo-400 text-sm font-medium hover:text-indigo-300 transition-colors">View all →</a>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {latestPosts.map((post) => (
+        <a href={`/blog/${post.slug}`}
+          class="group flex flex-col rounded-2xl border border-white/5 bg-white/3 p-5 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all">
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            {post.data.tags.slice(0, 2).map((tag: string) => (
+              <span class="px-2 py-0.5 rounded-md bg-indigo-500/15 text-indigo-400 text-xs">{tag}</span>
+            ))}
+          </div>
+          <h3 class="font-display font-semibold text-white text-sm leading-snug mb-2 group-hover:text-indigo-300 transition-colors">{post.data.title}</h3>
+          <p class="text-slate-500 text-xs leading-relaxed line-clamp-2 flex-1">{post.data.description}</p>
+          <time class="text-slate-600 text-xs mt-3 block" datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString('en-US', { dateStyle: 'medium' })}
+          </time>
+        </a>
+      ))}
+    </div>
+  </section>
+
 </BaseLayout>

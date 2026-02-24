@@ -1,25 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 ---
 
 <BaseLayout title="Blog" description="Manual testing articles and guides.">
-  <div class="max-w-3xl mx-auto px-4 py-10">
-    <h1 class="font-display font-bold text-3xl text-slate-900 mb-2">Blog</h1>
-    <p class="text-slate-600 mb-10">Guides and articles about manual testing.</p>
-    <ul class="space-y-6">
-      {posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.slug}`} class="block p-4 rounded-xl border border-slate-200 bg-white hover:border-accent hover:shadow-md transition-all">
-            <h2 class="font-display font-semibold text-lg text-slate-900">{post.data.title}</h2>
-            <p class="text-slate-600 text-sm mt-1">{post.data.description}</p>
-            <time class="text-slate-400 text-xs mt-2 block" datetime={post.data.pubDate.toISOString()}>
-              {post.data.pubDate.toLocaleDateString('en-US', { dateStyle: 'medium' })}
-            </time>
-          </a>
-        </li>
+  <div class="max-w-5xl mx-auto px-5 py-12">
+
+    <!-- Header -->
+    <div class="mb-10">
+      <h1 class="font-display font-extrabold text-4xl text-white mb-2">All articles</h1>
+      <p class="text-slate-400">{posts.length} guides about manual testing, ISTQB, and QA.</p>
+    </div>
+
+    <!-- Tag pills -->
+    <div class="flex flex-wrap gap-2 mb-10">
+      {allTags.map(tag => (
+        <span class="px-3 py-1 rounded-full border border-white/8 bg-white/3 text-slate-400 text-xs hover:border-indigo-500/40 hover:text-indigo-400 transition-colors cursor-default">{tag}</span>
       ))}
-    </ul>
+    </div>
+
+    <!-- Posts grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}`}
+          class="group flex flex-col rounded-2xl border border-white/5 bg-white/3 p-5 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all">
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            {post.data.tags.slice(0, 2).map((tag: string) => (
+              <span class="px-2 py-0.5 rounded-md bg-indigo-500/15 text-indigo-400 text-xs">{tag}</span>
+            ))}
+          </div>
+          <h2 class="font-display font-semibold text-white text-sm leading-snug mb-2 group-hover:text-indigo-300 transition-colors">{post.data.title}</h2>
+          <p class="text-slate-500 text-xs leading-relaxed line-clamp-2 flex-1">{post.data.description}</p>
+          <time class="text-slate-600 text-xs mt-3 block" datetime={post.data.pubDate.toISOString()}>
+            {post.data.pubDate.toLocaleDateString('en-US', { dateStyle: 'medium' })}
+          </time>
+        </a>
+      ))}
+    </div>
+
   </div>
 </BaseLayout>
